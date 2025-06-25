@@ -19,7 +19,7 @@ my_array = [5, 2, 11, 7, 15]
 
 class Solution:
     def twoSum(self, nums: list[int], target: int) -> list[int]:
-        hash_map = {}  # value -> index
+        hash_map = {}  
 
         for i, num in enumerate(nums):
             complement = target - num
@@ -40,5 +40,5 @@ result = solution.twoSum(nums, target)
 
 my_hash = {}
 my_hash[3] = 2
-
-print(my_hash)
+left, right = 1 + 1, 3 - 1
+print(left, right)
