@@ -31,3 +31,19 @@
     
 # fibonacci(0,1)
 
+
+# def F(n):
+#     if n <= 1:
+#         return n
+#     else:
+#         return F(n - 1) + F(n - 2)
+
+# print(F(19))
+
+# mylist = [1,2,3,4,5,6,9,7,10,11,14,12,15]
+# n = len(mylist)
+
+# for i in mylist:
+#     if i > maxnum:
+#         maxnum = i
+
