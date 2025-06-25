@@ -47,3 +47,19 @@
 #     if i > maxnum:
 #         maxnum = i
 
+
+my_array = [64, 34, 25, 12, 22, 11, 90, 5]
+
+n = len(my_array)
+print("total if list:",n)
+for i in range(n-1):
+    print("first i:",i)
+    print("n-i-1:",n-i-1)
+    for j in range(n-i-1):
+        print("second j:",j)
+        print("second result:", my_array[j])
+        if my_array[j] > my_array[j+1]:
+            print("my_array[j], my_array[j+1]:",my_array[j], my_array[j+1])
+            my_array[j], my_array[j+1] = my_array[j+1], my_array[j]
+
+print("Sorted array:", my_array)
