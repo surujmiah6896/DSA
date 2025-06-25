@@ -8,8 +8,9 @@ for i in range(n-1):
     for j in range(i + 1, n):
         if my_array[j] < my_array[min_index]:   # value compear 
             min_index = j
-    min_value = my_array.pop(min_index)
-    my_array.insert(i, min_value)
+    my_array[i], my_array[min_index] = my_array[min_index], my_array[i]  # Swap or replace
+    # min_value = my_array.pop(min_index)       # remove 
+    # my_array.insert(i, min_value)     # insert
 
 print("sorted array", my_array)
 
@@ -21,3 +22,7 @@ print("sorted array", my_array)
 # 5. remove remove and store min_value
 # 6. insert 1st loop index wise min value
 # final print this array
+
+# sorting with 2 way
+# 1. min value remove and insert
+# 2. swap or replace
