@@ -9,3 +9,25 @@
 #     print(newfibo)
 #     num1 = num2
 #     num2 = newfibo
+
+# write with recursion
+
+# print(0)
+# print(1)
+
+# count = 2
+
+# def fibonacci(num1, num2):
+#     global count
+#     if count <= 19:
+#         newfibo = num2 + num1
+#         print(newfibo)
+#         num1 = num2
+#         num2 = newfibo
+#         count += 1
+#         fibonacci(num1, num2)
+#     else:
+#         return
+    
+# fibonacci(0,1)
+
