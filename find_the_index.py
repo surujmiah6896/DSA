@@ -12,3 +12,6 @@ class Solution:
         return -1
 
 
+#  Example usage:
+solution = Solution()
+print(solution.strStr("hello", "ll"))    # Output: 2
