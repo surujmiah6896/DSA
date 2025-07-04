@@ -6,3 +6,9 @@ def remove_element(nums, val):
             i += 1
     return i
 
+
+nums = [3, 2, 2, 3]
+val = 3
+
+result = remove_element(nums, val)
+print(result)
