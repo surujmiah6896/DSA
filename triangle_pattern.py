@@ -1,4 +1,4 @@
-n = 10
+n = 5
 
 # for i in range(n):
 #     for j in range(i + 1):
@@ -28,9 +28,17 @@ n = 10
 #     print()
 
 # inverted triangle pattern
-p = 1
+# p = 1
+# for i in range(n):
+#     for j in range(i):
+#         print(p, end="")
+#     p += 1
+#     print()
+
+# pyramid pattern
 for i in range(n):
-    for j in range(i):
-        print(p, end="")
-    p += 1
+    for j in range(n - i - 1):
+        print(" ", end="")
+    for k in range(2 * i + 1):
+        print("*", end="")
     print()
