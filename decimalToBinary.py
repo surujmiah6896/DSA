@@ -1,6 +1,6 @@
 
-
-def convertBinary(decNum):
+# decimal to binary
+def decToBinary(decNum):
     ans = 0
     pow = 1
 
@@ -13,4 +13,22 @@ def convertBinary(decNum):
     return ans
 
 
-print(convertBinary(50))
+print(decToBinary(50))
+
+
+#binary to decimal
+
+def binaryToDecimal(biNum):
+    ans = 0
+    pow = 1
+
+    while (biNum > 0):
+        rem = biNum % 10
+        ans += rem * pow
+        biNum //= 10
+        pow *= 2
+
+    return ans
+
+
+print(binaryToDecimal(110010))
