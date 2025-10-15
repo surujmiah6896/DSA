@@ -16,7 +16,8 @@ def decToBinary(decNum):
 print(decToBinary(50))
 
 
-#binary to decimal
+# binary to decimal
+
 
 def binaryToDecimal(biNum):
     ans = 0

@@ -1,6 +1,8 @@
 arr = [1, 3, 4, 5, 6, 8, 90, 43]
 
-#this is 2 point approach
+# this is 2 point approach
+
+
 def reverseArray(array):
     arrLength = len(array)
     start = 0
