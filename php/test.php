@@ -20,7 +20,7 @@ class Test {
     public function __call($m, $p){
         echo $m;
         echo get_class($this);
-        echo $p;
+        echo $p; 
     }
 }
 
