@@ -33,3 +33,23 @@ def get_majority_dictionary(arr):
 
 
 print('dictionay', get_majority_dictionary(arr))
+
+
+def get_majority_sort(arr):
+    max = len(arr) // 2
+    sort_arr = sorted(arr)
+    print(sort_arr)
+    freq = 1
+    ans = [0]
+    for i in range(len(arr)):
+        if sort_arr[i] == sort_arr[i-1]:
+            freq += 1
+        else:
+            freq = 1
+            ans = sort_arr[i]
+        if freq > max:
+            return ans
+    return None
+
+
+print('get with sort', get_majority_sort(arr))
