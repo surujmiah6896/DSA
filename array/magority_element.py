@@ -49,7 +49,25 @@ def get_majority_sort(arr):
             ans = sort_arr[i]
         if freq > max:
             return ans
-    return None
+    return ans
 
 
 print('get with sort', get_majority_sort(arr))
+
+
+def get_majority_voting(arr):
+    freq = 0
+    ans = 0
+
+    for i in range(len(arr)):
+        print(freq)
+        if freq == 0:
+            ans = arr[i]
+        if ans == arr[i]:
+            freq += 1
+        else:
+            freq -= 1
+    return ans
+
+
+print('voting', get_majority_voting(arr))
