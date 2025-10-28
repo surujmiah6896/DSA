@@ -42,3 +42,9 @@
 // console.log('a type', typeof a);
 // console.log('b type', typeof b);
 // Comparing two JavaScript objects always returns false.
+
+
+const name = "md. jamal.   ";
+
+console.log('upcase', typeof NaN);
+
