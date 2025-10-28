@@ -1,5 +1,5 @@
 arr = [2, 7, 11, 15]
-target = 9
+target = 26
 
 # this is raw approach with loop
 
@@ -40,3 +40,25 @@ def tow_sum_optimized(arr, target):
 
 
 print(tow_sum_optimized(arr, target))
+
+
+# tow sum and sorted
+
+def tow_sum_sorted(arr, target):
+    indexed_arr = [(val, idx) for idx, val in enumerate(arr)]
+    indexed_arr.sort()  # Sort by value
+    print(indexed_arr)
+    left, right = 0, len(arr) - 1
+
+    while left < right:
+        current_sum = indexed_arr[left][0] + indexed_arr[right][0]
+        if current_sum == target:
+            return [indexed_arr[left][1], indexed_arr[right][1]]
+        elif current_sum < target:
+            left += 1
+        else:
+            right -= 1
+    return []
+
+
+print(tow_sum_sorted(arr, target))
