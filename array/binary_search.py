@@ -78,6 +78,22 @@ def binary_search_rotated_with_duplicates(arr, target):
 print("Element found with duplicates:", binary_search_rotated_with_duplicates([2, 5, 6, 0, 0, 1, 2], 0))
 
 
+# peak index in a mountain array
+# leetcode 852
+def binary_search_peak_element(arr):
+    low = 0
+    high = len(arr) - 1
+    while low < high:
+        mid = (low + high) // 2
+        if arr[mid] < arr[mid + 1]:
+            low = mid + 1
+        else:
+            high = mid
+    return low
+
+
+print("Peak element found at index:", binary_search_peak_element([0, 2, 1, 0]))
+
 # low = 0
 # high = len(arr) - 1
 # while low <= high:
