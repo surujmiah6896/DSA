@@ -1,7 +1,8 @@
-nums = [1, 2, 3, 4, 5]
-target = 3
+nums = [-1, 0, 3, 5, 9, 12]
+target = -1
 
 # Basic binary search implementation
+# leetcode 704
 
 
 def binary_search(arr, target):
@@ -20,7 +21,9 @@ def binary_search(arr, target):
 
 print("Element found at index:", binary_search(nums, target))
 
-#rotated sorted array search
+# rotated sorted array search
+# leetcode 33
+
 
 def binary_search_rotated(arr, target):
     low = 0
@@ -44,6 +47,57 @@ def binary_search_rotated(arr, target):
 
 result_rotated = binary_search_rotated([4, 5, 6, 7, 0, 1, 2], 0)
 print("Element found at index in rotated array:", result_rotated)
+
+# rotated sorted array search with duplicates
+# leetcode 81
+
+
+def binary_search_rotated_with_duplicates(arr, target):
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return True
+        if arr[low] == arr[mid] == arr[high]: 
+            low += 1
+            high -= 1
+        elif arr[low] <= arr[mid]:
+            if arr[low] <= target < arr[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+        else:
+            if arr[mid] < target <= arr[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+    return False        
+
+
+print("Element found with duplicates:", binary_search_rotated_with_duplicates([2, 5, 6, 0, 0, 1, 2], 0))
+
+
+# low = 0
+# high = len(arr) - 1
+# while low <= high:
+#     mid = (low + high) // 2
+#     if arr[mid] == target:
+#         return True
+#     if arr[low] == arr[mid] == arr[high]:
+#         low += 1
+#         high -= 1
+#     elif arr[low] <= arr[mid]:
+#         if arr[low] <= target < arr[mid]:
+#             high = mid - 1
+#         else:
+#             low = mid + 1
+#     else:
+#         if arr[mid] < target <= arr[high]:
+#             low = mid + 1
+#         else:
+#             high = mid - 1
+# return False
 
 # Recursive binary search
 # def binary_search_recursive(arr, target, low, high):
@@ -125,27 +179,6 @@ print("Element found at index in rotated array:", result_rotated)
 
 # result_insert_not_found = binary_search_insert_position_not_found([1, 3, 5, 6], 2)
 # print("Insert position of element (not found case) is:", result_insert_not_found)
-
-# def binary_search_rotated(arr, target):
-#     low = 0
-#     high = len(arr) - 1
-#     while low <= high:
-#         mid = (low + high) // 2
-#         if arr[mid] == target:
-#             return mid
-#         if arr[low] <= arr[mid]:  # Left half is sorted
-#             if arr[low] <= target < arr[mid]:
-#                 high = mid - 1
-#             else:
-#                 low = mid + 1
-#         else:  # Right half is sorted
-#             if arr[mid] < target <= arr[high]:
-#                 low = mid + 1
-#             else:
-#                 high = mid - 1
-#     return -1
-# result_rotated = binary_search_rotated([4,5,6,7,0,1,2], 0)
-# print("Element found at index in rotated array:", result_rotated)
 
 # def binary_search_rotated_recursive(arr, target, low, high):
 #     if low > high:
