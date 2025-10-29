@@ -20,21 +20,32 @@ def binary_search(arr, target):
 
 print("Element found at index:", binary_search(nums, target))
 
-# def binary_search(arr, target):
-#     low = 0
-#     high = len(arr) - 1
-#     while low <= high:
-#         mid = (low + high) // 2
-#         if arr[mid] == target:
-#             return mid
-#         elif arr[mid] < target:
-#             low = mid + 1
-#         else:
-#             high = mid - 1
-#     return -1
+#rotated sorted array search
 
-# result = binary_search(nums, target)
-# print("Element found at index:", result)
+def binary_search_rotated(arr, target):
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return mid
+        if arr[low] <= arr[mid]:
+            if arr[low] <= target and target < arr[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+        else:
+            if arr[mid] < target and target <= arr[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+    return -1
+
+
+result_rotated = binary_search_rotated([4, 5, 6, 7, 0, 1, 2], 0)
+print("Element found at index in rotated array:", result_rotated)
+
+# Recursive binary search
 # def binary_search_recursive(arr, target, low, high):
 #     if low > high:
 #         return -1
