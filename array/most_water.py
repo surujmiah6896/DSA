@@ -24,22 +24,22 @@ print(max_area_brute_force(height))
 # Two pointer approach
 # This approach has a time complexity of O(n) and is more efficient for large inputs.
 
-def max_area(height):
-    max_area = 0
+
+def max_area_two_pointer(height):
     left = 0
     right = len(height) - 1
+    max_area = 0
 
     while left < right:
-        current_area = min(height[left], height[right]) * (right - left)
-
-        max_area = max(max_area, current_area)
+        area = min(height[left], height[right]) * (right - left)
+        max_area = max(max_area, area)
 
         if height[left] < height[right]:
             left += 1
         else:
             right -= 1
 
-    return {"max_area": max_area, "left_max": height[left], "right_max": height[right], "width": right - left}
+    return max_area
 
 
-print(max_area(height))
+print(max_area_two_pointer(height))
