@@ -91,8 +91,13 @@ def binary_search_peak_element(arr):
             high = mid
     return low
 
+
+print("Peak element found at index:", binary_search_peak_element([0, 2, 1, 0]))
+
 # binary_search_rotated_get_lowest_point
 # leetcode 153
+
+
 def binary_search_rotated_get_lowest_point(arr):
     low = 0
     high = len(arr) - 1
@@ -103,10 +108,29 @@ def binary_search_rotated_get_lowest_point(arr):
             high = mid
         else:
             low = mid + 1
-    return low
+    return arr[low]
 
 
-print("Peak element found at index:", binary_search_peak_element([0, 2, 1, 0]))
+print("Lowest point in rotated array is:", binary_search_rotated_get_lowest_point([4, 5, 6, 7, 0, 1, 2]))
+
+# find minimum in rotated sorted array with duplicates
+# leetcode 154
+
+
+def binary_search_rotated_get_lowest_point_with_duplicates(arr):
+    low = 0
+    high = len(arr) - 1
+    
+    while low < high:
+        mid = (low + high) // 2
+        if arr[mid] < arr[high]:
+            high = mid
+        elif arr[mid] > arr[high]:
+            low = mid + 1
+        else:
+            high -= 1
+    return arr[low]
+
 
 # low = 0
 # high = len(arr) - 1
