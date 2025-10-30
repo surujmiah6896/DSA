@@ -132,6 +132,54 @@ def binary_search_rotated_get_lowest_point_with_duplicates(arr):
     return arr[low]
 
 
+# single Element in a sorted array
+# leetcode 540
+def binary_search_single_element(arr):
+    low = 0
+    high = len(arr) - 1
+    while low < high:
+        mid = (low + high) // 2
+        if mid % 2 == 1:  # make mid even 
+            mid -= 1
+        if arr[mid] == arr[mid + 1]:
+            low = mid + 2
+        else:
+            high = mid
+    return arr[low]
+
+print("Single element in sorted array is--:", binary_search_single_element([1,1,2,3,3,4,4,8,8]))
+
+# single element in a sorted array approach 2
+# leetcode 540
+
+
+def binary_search_single_element2(arr):
+    if len(arr) == 1:
+        return arr[0]
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if mid == 0 and arr[0] != arr[1]:
+            return arr[0]
+        if mid == len(arr) - 1 and arr[len(arr)-1] != arr[len(arr)-2]:
+            return arr[mid]
+        if arr[mid-1] != arr[mid] and arr[mid] != arr[mid + 1]:
+            return arr[mid]
+        if mid % 2 == 0:
+            if arr[mid - 1] == arr[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+        else:
+            if arr[mid - 1] == arr[mid]:
+                low = mid + 1
+            else:
+                high = mid - 1
+    return -1
+
+
+print("Single element in sorted array (approach 2) is:", binary_search_single_element2([1, 1, 2, 3, 3, 4, 4, 8, 8]))
 # low = 0
 # high = len(arr) - 1
 # while low <= high:
