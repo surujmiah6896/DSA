@@ -85,7 +85,21 @@ def binary_search_peak_element(arr):
     high = len(arr) - 1
     while low < high:
         mid = (low + high) // 2
-        if arr[mid] > arr[mid - 1]:
+        if arr[mid] < arr[mid + 1]:
+            low = mid + 1
+        else:
+            high = mid
+    return low
+
+# binary_search_rotated_get_lowest_point
+# leetcode 153
+def binary_search_rotated_get_lowest_point(arr):
+    low = 0
+    high = len(arr) - 1
+    
+    while low < high:
+        mid = (low + high) // 2
+        if arr[mid] < arr[high]:
             high = mid
         else:
             low = mid + 1
