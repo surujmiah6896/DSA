@@ -46,8 +46,9 @@ class Todo {
       }
     }
     if (item) {
-      item.task = updatedTask;
+      item.title = updatedTask;
     }
+    return item;
   }
 
   complete(id) {
@@ -69,7 +70,20 @@ class Todo {
   }
 
   next() {
-    return this.todoList[0];
+    let next = 0;
+    let item;
+    if (this.todoList.length > 0) {
+      next = 1;
+    } 
+    for (let t of this.todoList) {
+      if (t.id === next) {
+        item = t;
+        next += 1;
+        break;
+      }
+    }
+    
+    return item || null;
   }
 
   find(title) {
@@ -93,7 +107,7 @@ class Todo {
       }
     }
     if (item) {
-      this.todoList = slice(this.todoList).remove(item).toArray();
+      this.todoList.splice(this.todoList.indexOf(item), 1);
     }
   }
 }

@@ -14,7 +14,7 @@ const filePath = path.resolve(__dirname, fileName);
   let data = readFile(filePath) || [];
   const todo = new Todo(data);
   const { _: baseCommand } = argv;
-//   console.log(argv);
+  console.log(argv);
   
     switch (baseCommand[0]) {
       case ADD:
@@ -34,8 +34,8 @@ const filePath = path.resolve(__dirname, fileName);
         saveFile(filePath, todo.todoList);
         break;
       case UPDATE:
-        todo.update(argv.id, argv.title);
-        console.log('Todo Updated');
+        const updatedItem = todo.update(argv.id, argv.title);
+        console.log('Todo Updated', updatedItem);
         saveFile(filePath, todo.todoList);
         break;
       case DELETE:
@@ -45,7 +45,7 @@ const filePath = path.resolve(__dirname, fileName);
         break;
       case NEXT:
         const item = todo.next();
-        console.log(`${item.id}: ${item.task}[${item.completed ? "X" : " "}]`);
+        console.log(`${item.id}: ${item.title}[${item.completed ? "X" : " "}]`);
         break;
       case FIND:
         const Items = todo.find(argv.title);
