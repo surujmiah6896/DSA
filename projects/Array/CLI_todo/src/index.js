@@ -3,8 +3,9 @@ const argv = require("yargs/yargs")(process.argv.slice(2)).argv;
 const path = require('path');
 const Todo = require('./Todo');
 const {saveFile, readFile} = require('./utils');
+const chalk = require('chalk').default;
 const { ADD, LIST, COMPLETE, UPDATE, DELETE, NEXT, FIND } = require('./commands');
-const { log } = require("console");
+
 
 const fileName = '../data.json';
 const filePath = path.resolve(__dirname, fileName);
@@ -24,7 +25,7 @@ const filePath = path.resolve(__dirname, fileName);
       case LIST:
         const items = todo.list();
         items.forEach(item => {
-          console.log(`${item.id}: ${item.title}[${item.createdAt.toLocaleString()}] => ${item.completed ? 'X' : 'O'}`);
+          console.log(`${item.id}: ${chalk.blue(item.title)}[${item.createdAt.toLocaleString()}] => ${item.completed ? chalk.green('X') : chalk.red('O')}`);
         });
         break;
       case COMPLETE:
@@ -44,11 +45,17 @@ const filePath = path.resolve(__dirname, fileName);
         break;
       case NEXT:
         const item = todo.next();
-        console.log(`${item.id}: ${item.task}[${item.completed ? 'X' : ' '}]`);
+        console.log(`${item.id}: ${item.task}[${item.completed ? "X" : " "}]`);
         break;
       case FIND:
-        const foundItems = todo.find(argv.title);
-        console.log('Todo Found:', foundItems);
+        const Items = todo.find(argv.title);
+        if (!Items.length) {
+          console.log('No Todo Found');
+          return;
+        }
+        for(let item of Items){
+          console.log(`${item.id}: ${chalk.blue(item.title)}[${item.createdAt.toLocaleString()}] => ${item.completed ? chalk.green('X') : chalk.red('O')}`);
+        }
         break;
       default:
         console.log("Unknown command");
