@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Compiler | Run JavaScript Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .compiler-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .compiler-container {
+                flex-direction: row;
+            }
+        }
+
+        .editor-section, .output-section {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header i {
+            font-size: 1.2rem;
+        }
+
+        .code-editor {
+            height: 400px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            line-height: 1.5;
+            border: none;
+            resize: none;
+            width: 100%;
+            outline: none;
+            background: #f8f9fa;
+        }
+
+        .output {
+            height: 400px;
+            padding: 15px;
+            overflow-y: auto;
+            background: #1e1e1e;
+            color: #f0f0f0;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .run-btn {
+            background: #27ae60;
+            color: white;
+        }
+
+        .run-btn:hover {
+            background: #219653;
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .examples-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .examples-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .examples-panel {
+            background: white;
+            border-radius: 10px;
+            margin-top: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .examples-panel h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .example-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .example-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #3498db;
+        }
+
+        .example-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .example-card p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            padding: 20px;
+            opacity: 0.8;
+        }
+
+        .error {
+            color: #e74c3c;
+        }
+
+        .success {
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-code"></i> JavaScript Online Compiler</h1>
+            <p>Write, run, and test your JavaScript code instantly in the browser</p>
+        </header>
+
+        <div class="compiler-container">
+            <div class="editor-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-edit"></i> Code Editor</h2>
+                    <span>JavaScript</span>
+                </div>
+                <textarea id="codeEditor" class="code-editor" placeholder="Write your JavaScript code here...">
+                    // Welcome to JavaScript Online Compiler
+// Try running this example code
+
+function factorial(n) {
+    if (n === 0 || n === 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+console.log("Factorial of 5 is: " + factorial(5));
+
+// Calculate Fibonacci sequence
+function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log("First 10 Fibonacci numbers:");
+for (let i = 0; i < 10; i++) {
+    console.log(`F(${i}) = ${fibonacci(i)}`);
+}</textarea>
+                <div class="controls">
+                    <button class="run-btn" id="runBtn">
+                        <i class="fas fa-play"></i> Run Code
+                    </button>
+                    <button class="clear-btn" id="clearBtn">
+                        <i class="fas fa-broom"></i> Clear Output
+                    </button>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-terminal"></i> Output</h2>
+                    <span>Console</span>
+                </div>
+                <div id="output" class="output">Output will be displayed here...</div>
+                <div class="controls">
+                    <button class="examples-btn" id="examplesBtn">
+                        <i class="fas fa-lightbulb"></i> Show Examples
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="examples-panel" id="examplesPanel" style="display: none;">
+            <h3><i class="fas fa-code-branch"></i> JavaScript Examples</h3>
+            <div class="example-list">
+                <div class="example-card" data-example="array">
+                    <h4>Array Operations</h4>
+                    <p>Map, filter, reduce and other array methods</p>
+                </div>
+                <div class="example-card" data-example="string">
+                    <h4>String Manipulation</h4>
+                    <p>Common string operations and methods</p>
+                </div>
+                <div class="example-card" data-example="object">
+                    <h4>Object Manipulation</h4>
+                    <p>Working with objects and JSON</p>
+                </div>
+                <div class="example-card" data-example="dom">
+                    <h4>DOM Manipulation</h4>
+                    <p>Creating and modifying HTML elements</p>
+                </div>
+                <div class="example-card" data-example="async">
+                    <h4>Async Operations</h4>
+                    <p>Promises, async/await examples</p>
+                </div>
+                <div class="example-card" data-example="algorithm">
+                    <h4>Algorithms</h4>
+                    <p>Common algorithms and problem solving</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>JavaScript Online Compiler &copy; 2023 | Run JavaScript code directly in your browser</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeEditor = document.getElementById('codeEditor');
+            const output = document.getElementById('output');
+            const runBtn = document.getElementById('runBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const examplesBtn = document.getElementById('examplesBtn');
+            const examplesPanel = document.getElementById('examplesPanel');
+            
+            // Example code snippets
+            const examples = {
+                array: `// Array Operations Example
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Using map to double each number
+const doubled = numbers.map(num => num * 2);
+console.log("Doubled numbers:", doubled);
+
+// Using filter to get even numbers
+const evens = numbers.filter(num => num % 2 === 0);
+console.log("Even numbers:", evens);
+
+// Using reduce to calculate sum
+const sum = numbers.reduce((acc, num) => acc + num, 0);
+console.log("Sum of numbers:", sum);
+
+// Using find to get first number greater than 5
+const firstLarge = numbers.find(num => num > 5);
+console.log("First number > 5:", firstLarge);`,
+
+                string: `// String Manipulation Example
+const text = "Hello, JavaScript World!";
+
+// String methods
+console.log("Original text:", text);
+console.log("Uppercase:", text.toUpperCase());
+console.log("Lowercase:", text.toLowerCase());
+console.log("Length:", text.length);
+console.log("Includes 'JavaScript':", text.includes("JavaScript"));
+console.log("Replace 'World' with 'Universe':", text.replace("World", "Universe"));
+
+// String splitting and joining
+const words = text.split(" ");
+console.log("Words array:", words);
+console.log("Joined with dashes:", words.join("-"));
+
+// Template literals
+const name = "Alice";
+const age = 28;
+console.log(\`\\nTemplate literal example:\\nMy name is \${name} and I'm \${age} years old.\`);`,
+
+                object: `// Object Manipulation Example
+const person = {
+    name: "John Doe",
+    age: 30,
+    profession: "Developer",
+    hobbies: ["reading", "coding", "gaming"],
+    address: {
+        street: "123 Main St",
+        city: "Techville",
+        country: "USA"
+    }
+};
+
+// Accessing properties
+console.log("Person object:", person);
+console.log("Name:", person.name);
+console.log("City:", person.address.city);
+
+// Adding new property
+person.email = "john.doe@example.com";
+console.log("After adding email:", person);
+
+// Object methods
+const keys = Object.keys(person);
+console.log("Object keys:", keys);
+
+const values = Object.values(person);
+console.log("Object values:", values);
+
+// JSON stringify and parse
+const jsonString = JSON.stringify(person);
+console.log("JSON string:", jsonString);
+
+const parsedObject = JSON.parse(jsonString);
+console.log("Parsed object:", parsedObject);`,
+
+                dom: `// DOM Manipulation Example
+console.log("Creating HTML elements with JavaScript:");
+
+// Create a new div element
+const newDiv = document.createElement('div');
+newDiv.textContent = "This div was created dynamically!";
+newDiv.style.backgroundColor = "#3498db";
+newDiv.style.color = "white";
+newDiv.style.padding = "10px";
+newDiv.style.margin = "10px 0";
+newDiv.style.borderRadius = "5px";
+
+// Create a button element
+const newButton = document.createElement('button');
+newButton.textContent = "Click Me!";
+newButton.style.padding = "8px 16px";
+newButton.style.backgroundColor = "#e74c3c";
+newButton.style.color = "white";
+newButton.style.border = "none";
+newButton.style.borderRadius = "4px";
+newButton.style.cursor = "pointer";
+
+// Add click event to button
+newButton.addEventListener('click', function() {
+    console.log("Button was clicked!");
+    newDiv.textContent = "Button was clicked! The content has changed.";
+});
+
+// Append elements to output (for demonstration)
+// In a real DOM, you would append to an existing element
+console.log("Elements created successfully!");
+console.log("In a real browser, these would be visible on the page.");`,
+
+                async: `// Async Operations Example
+console.log("Async Operations Examples:");
+
+// Simulating API calls with setTimeout
+function fetchUserData(userId) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (userId === 1) {
+                resolve({ id: 1, name: "John Doe", email: "john@example.com" });
+            } else {
+                reject("User not found");
+            }
+        }, 1500);
+    });
+}
+
+// Using Promises
+fetchUserData(1)
+    .then(user => {
+        console.log("User data (Promise):", user);
+        return fetchUserData(2);
+    })
+    .then(user => console.log("This won't execute"))
+    .catch(error => console.log("Error (Promise):", error));
+
+// Using async/await
+async function getUserData() {
+    try {
+        console.log("Fetching user data...");
+        const user = await fetchUserData(1);
+        console.log("User data (async/await):", user);
+        
+        // This will throw an error
+        const user2 = await fetchUserData(2);
+    } catch (error) {
+        console.log("Error (async/await):", error);
+    }
+}
+
+getUserData();`,
+
+                algorithm: `// Algorithm Examples
+console.log("Common Algorithms:");
+
+// Binary Search
+function binarySearch(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+    
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        
+        if (arr[mid] === target) {
+            return mid;
+        } else if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    
+    return -1;
+}
+
+const sortedArray = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+const target = 13;
+const resultIndex = binarySearch(sortedArray, target);
+console.log(\`Binary Search: \${target} found at index \${resultIndex} in [\${sortedArray}]\`);
+
+// Palindrome Check
+function isPalindrome(str) {
+    const cleanedStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return cleanedStr === cleanedStr.split('').reverse().join('');
+}
+
+const testString = "A man, a plan, a canal: Panama";
+console.log(\`Is "\${testString}" a palindrome? \${isPalindrome(testString)}\`);
+
+// Fibonacci with memoization
+function fibonacciMemo() {
+    const cache = {};
+    
+    return function fib(n) {
+        if (n in cache) return cache[n];
+        if (n <= 1) return n;
+        
+        cache[n] = fib(n - 1) + fib(n - 2);
+        return cache[n];
+    };
+}
+
+const fib = fibonacciMemo();
+console.log(\`Fibonacci(10) with memoization: \${fib(10)}\`);`
+            };
+
+            // Run button event listener
+            runBtn.addEventListener('click', function() {
+                try {
+                    // Clear previous output
+                    output.innerHTML = '';
+                    
+                    // Capture console.log output
+                    const originalLog = console.log;
+                    console.log = function(...args) {
+                        originalLog.apply(console, args);
+                        output.innerHTML += args.map(arg => 
+                            typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+                        ).join(' ') + '\n';
+                    };
+                    
+                    // Execute the code
+                     (codeEditor.value);
+                    
+                    // Restore original console.log
+                    console.log = originalLog;
+                    
+                    // Add success message if no errors
+                    if (output.innerHTML === '') {
+                        output.innerHTML = 'Code executed successfully. No output to display.';
+                    }
+                } catch (error) {
+                    output.innerHTML = `<span class="error">Error: ${error.message}</span>`;
+                }
+            });
+
+            // Clear button event listener
+            clearBtn.addEventListener('click', function() {
+                output.innerHTML = 'Output cleared. Run your code to see results here.';
+            });
+
+            // Examples button event listener
+            examplesBtn.addEventListener('click', function() {
+                if (examplesPanel.style.display === 'none') {
+                    examplesPanel.style.display = 'block';
+                    examplesBtn.innerHTML = '<i class="fas fa-times"></i> Hide Examples';
+                } else {
+                    examplesPanel.style.display = 'none';
+                    examplesBtn.innerHTML = '<i class="fas fa-lightbulb"></i> Show Examples';
+                }
+            });
+
+            // Example card event listeners
+            document.querySelectorAll('.example-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const exampleType = this.getAttribute('data-example');
+                    codeEditor.value = examples[exampleType];
+                    
+                    // Scroll to editor
+                    codeEditor.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Close examples panel
+                    examplesPanel.style.display = 'none';
+                    examplesBtn.innerHTML = '<i class="fas fa-lightbulb"></i> Show Examples';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

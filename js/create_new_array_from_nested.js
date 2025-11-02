@@ -16,7 +16,6 @@ function createNewArray(arr) {
   }
 
   const newArray = [];
-
   function flatten(input) {
     var len = input.length;
     for (i = 0; i < len; i++) {
@@ -30,7 +29,6 @@ function createNewArray(arr) {
   }
 
   flatten(arr);
-
   return newArray;
 }
 
