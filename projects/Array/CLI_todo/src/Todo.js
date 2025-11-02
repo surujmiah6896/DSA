@@ -27,10 +27,10 @@ class Todo {
     this.todoList = todoList;
   }
 
-  addItem(task) {
+  addItem(title) {
     let item = {
-      id: this.generateId(this.todoList),
-      task: task,
+      id: generateId(this.todoList),
+      title: title,
       completed: false,
       createdAt: new Date(),
     };
@@ -72,10 +72,12 @@ class Todo {
     return this.todoList[0];
   }
 
-  find(prop, value) {
+  find(title) {
+    console.log('check title', title);
+    
     const results = [];
     for (let t of this.todoList) {
-      if (t[prop] === value) {
+      if (t.title.toLowerCase().includes(title.toLowerCase())) {
         results.push(t);
       }
     }
