@@ -38,3 +38,31 @@ reuse(names, value =>{
     result3.push(value.substr(6));
 });
 console.log(result3);
+
+//here all example are same but different in business logic 
+// and all function  create new more result that means create new array that is a result
+
+
+
+//is custom map function
+function reuseAndMap(arr, logic) {
+    const result = [];
+    for (let i = 0; i < arr.length; i++) {
+        result.push(logic(arr[i], i, arr));
+    }
+    return  result;
+}
+
+let newtest = reuseAndMap(names, value=> value.substr(6));
+
+console.log(newtest);
+
+
+let newtest2 = reuseAndMap(names, (value) => value.toUpperCase());
+
+console.log(newtest2);
+
+// now we work with js build-in map
+const nameLength = names.map((value, index)=> value.length);
+console.log(nameLength);
+
