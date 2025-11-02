@@ -3,7 +3,7 @@
  */
 
 let names = [
-    ' learn js',
+    'learn js',
     'learn stack school',
     'stack consultancy',
     'stack solution',
@@ -45,5 +45,16 @@ function sumFunc(v){
     sum += v
 }
 
+//is work for sum
 myForeach(nums, sumFunc);
 console.log('sum',sum);
+
+//is work for show and is custom
+myForeach(names, (value, index)=>{
+  console.log(`${index + 1}: ${value}`);
+});
+
+//is of js build-in forEach
+names.forEach((value, index)=>{
+    console.log(`${index + 1}: ${value}`);
+})
