@@ -9,6 +9,9 @@ var arr = [
   ],
 ];
 
+// console.log('flat-array:',arr.flat()); is work only one step
+
+
 function createNewArray(arr) {
   if (typeof arr != "object" || arr == "" || arr == null) {
     console.log("please enter valid array");
