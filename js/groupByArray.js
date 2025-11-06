@@ -33,3 +33,21 @@ function arrayGroupByKey(arr, key) {
 }
 
 console.log(arrayGroupByKey(arr, "group"));
+
+
+
+//create array group with array prototype;
+Array.prototype.groupBy = function(fn){
+  const result = {};
+  for(let item of this){
+    const key = fn(item);
+    if(!result[key]){
+      result[key] = []
+    }
+    result[key].push(item);
+  }
+  return result;
+}
+
+const newarray = [1,1,2,1,2,2,7].groupBy((item)=>item);
+console.log(newarray);
