@@ -51,3 +51,14 @@ Array.prototype.groupBy = function(fn){
 
 const newarray = [1,1,2,1,2,2,7].groupBy((item)=>item);
 console.log(newarray);
+
+
+//array groupby with reduce use callback
+Array.prototype.groupBy = function (fn) {
+  return this.reduce((result, item) => {
+    const key = fn(item);
+    result[key] = result[key] || [];
+    result[key].push(item);
+    return result;
+  }, {});
+};
