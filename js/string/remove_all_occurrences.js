@@ -30,8 +30,8 @@ function removeOccurrences(s, part) {
   }
   return s;
 }
-
-const s = "daabcbaabcbc";
+ s = "daabcbaabcbc";
 const part = "abc";
 
 console.log(removeOccurrences(s, part));
+console.log('global',global.s);
