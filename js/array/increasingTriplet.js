@@ -1,3 +1,9 @@
+
+
+/**@title #443. String Compression of leetcode
+ * @params array 
+ * @returns boolean
+ */
 var increasingTriplet = function(){
     if(nums.length < 3) return false;
 
