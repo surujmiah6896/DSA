@@ -1,3 +1,8 @@
+/**
+ * @leetcode String Compression
+ * @param {*} chars 
+ * @returns 
+ */
 var compress = function (chars) {
   let writeIndex = 0;
   let readIndex = 0;
