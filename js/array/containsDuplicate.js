@@ -25,15 +25,14 @@ var containsNearbyDuplicate = function(nums, k) {
 var containsNearbyDuplicateWithMap = function (nums, k) {
   const map = new Map();
 
-  for (let i = 0; i < nums.length; i++) {
+  for(let i = 0; i < nums.length; i++){
     const num = nums[i];
-
-    if (map.has(num) && i - map.get(num) <= k) {
-      return true;
+    if(map.has(num) && i - map.get(num) <= k){
+        return true;
     }
-
     map.set(num, i);
   }
 
   return false;
+
 };
