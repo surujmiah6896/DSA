@@ -53,8 +53,8 @@ var thirdMaxWithThreeVariables = function (nums) {
         }
     }
 
-    return third != -Infinity ? third : second;
+    return third !== -Infinity ? third : first;
 };
 
-const nums = [3, 3, 3, 3, 3, 1];
+const nums = [3, 3, 2, 2, 3, 1];
 console.log(thirdMaxWithThreeVariables(nums));
