@@ -25,7 +25,7 @@ var thirdMax = function(nums){
 
 
 /**
- * solve with Three variables
+ * solve with Three variables is optimal approach
  * Time Complexity: O(n)
  * Space Comlexity: O(1)
  */
