@@ -35,3 +35,29 @@ const nums1 = [1, 2, 3, 0, 0, 0],
   console.log(merge(nums1, m, nums2, n));
 
 
+
+  //is same for this just syntex different
+  function merge(nums1, m, nums2, n) {
+    let i = m - 1; // Last valid element in nums1
+    let j = n - 1; // Last element in nums2
+    let k = m + n - 1; // Last position in merged array
+
+    // Merge from the end
+    while (i >= 0 && j >= 0) {
+      if (nums1[i] > nums2[j]) {
+        nums1[k] = nums1[i];
+        i--;
+      } else {
+        nums1[k] = nums2[j];
+        j--;
+      }
+      k--;
+    }
+
+    // Copy remaining elements from nums2 (if any)
+    while (j >= 0) {
+      nums1[k] = nums2[j];
+      j--;
+      k--;
+    }
+  }
