@@ -21,7 +21,12 @@ var containsNearbyDuplicate = function(nums, k) {
 // console.log(containsNearbyDuplicate(nums, k));
 
 
-
+/**
+ * 
+ * @param {*} nums 
+ * @param {*} k 
+ * @returns 
+ */
 var containsNearbyDuplicateWithMap = function (nums, k) {
   const map = new Map();
 
