@@ -34,6 +34,45 @@ var longestOnes = function (nums, k) {
 //step 5: return max
 
 
-const nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2;
+// const nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2;
 
-console.log(longestOnes(nums, k));
+// console.log(longestOnes(nums, k));
+
+
+
+/**
+ * leet-code 1493
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestSubarray = function(nums) {
+    let left = 0;
+    let right = 0;
+    let maxLength = 0;
+    let zeroCount = 0;
+
+    while(right < nums.length){
+        if(nums[right] === 0){
+            zeroCount++;
+        }
+
+        while(zeroCount > 1){
+            if(nums[left] === 0){
+                zeroCount--;
+            }
+            left++;
+        }
+
+
+        maxLength = Math.max(maxLength, right - left);
+        right++;
+    }
+
+    return maxLength;
+};
+
+
+const nums = [1, 1, 0, 1];
+
+
+console.log(longestSubarray(nums));
