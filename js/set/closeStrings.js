@@ -1,3 +1,10 @@
+/**
+ * leetcode 1657. Determine if Two Strings Are Close
+ * https://leetcode.com/problems/determine-if-two-strings-are-close/
+ * @param {*} word1 
+ * @param {*} word2 
+ * @returns 
+ */
 function closeStrings(word1, word2) {
     if(word1.length !== word2.length) return false;
 
@@ -26,11 +33,11 @@ function closeStrings(word1, word2) {
     for (let i = 0; i < freq1.length; i++) {
       if (freq1[i] !== freq2[i]) return false;
     }
-    
+
     return true;
 }
 
-const word1 = "aabc",
+const word1 = "abc",
   word2 = "bbca";
 
   console.log(closeStrings(word1, word2));
