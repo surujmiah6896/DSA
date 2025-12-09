@@ -35,7 +35,9 @@ const grid1 = [
 console.log(equalPairsBrute(grid1));
 
 /**
- * this solve with hash map
+ * this solve with hash map approach is more optimal
+ * leetcode 2352. Equal Row and Column Pairs
+ * https://leetcode.com/problems/equal-row-and-column-pairs/
  * @param {*} grid 
  * @returns
  */
@@ -44,14 +46,14 @@ function equalPairsHashMap(grid) {
     if(!grid || grid.length === 0) return 0;
 
     const n = grid.length;
-    const rowMap = new Map();
+  const  rowMap = new Map();
     let count = 0;
     
     for(let r=0; r < n; r++){
         const rowKey = grid[r].join(',');
         rowMap.set(rowKey, (rowMap.get(rowKey) || 0) + 1);
     }
-    
+
     for(let c=0; c < n; c++){
         const colArr = [];
         for(let r=0; r < n; r++){
@@ -64,3 +66,5 @@ function equalPairsHashMap(grid) {
     }
     return count;
 }
+
+console.log(equalPairsHashMap(grid1));
