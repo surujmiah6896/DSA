@@ -1,4 +1,9 @@
-
+/**
+ * leetcode 735. Asteroid Collision
+ * https://leetcode.com/problems/asteroid-collision/
+ * @param {*} asteroids 
+ * @returns 
+ */
 function asteroidCollision(asteroids) {
     const stack = [];
     for (let asteroid of asteroids) {
