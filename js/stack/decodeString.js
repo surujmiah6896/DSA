@@ -5,11 +5,6 @@
  */
 function decodeString(encodedStr) {
     const stack = [];
-    // stack.push(['sex', 6]);
-    // return stack.pop();
-    // const sex = 'yes';
-
-    // return sex.repeat(3);
     let currentNum = 0;
     let currentStr = '';
     
